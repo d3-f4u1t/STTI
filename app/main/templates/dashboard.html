@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="animate__animated animate__fadeIn">
+    <h1 class="mb-4">Dashboard Overview</h1>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4">
+                <h5>Classes Today</h5>
+                <p><strong>5</strong> classes scheduled</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4">
+                <h5>Pending Assignments</h5>
+                <p><strong>2</strong> assignments due</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4">
+                <h5>Upcoming Exams</h5>
+                <p><strong>Maths Midterm</strong> – 25-09-2025</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

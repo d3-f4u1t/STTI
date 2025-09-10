@@ -1,0 +1,28 @@
+app/
+│
+├── __init__.py
+├── extensions.py
+├── models.py
+│
+├── auth/
+│   ├── __init__.py
+│   ├── routes.py
+│   └── templates/
+│       ├── login.html
+│       └── register.html
+│
+├── main/
+│   ├── __init__.py
+│   ├── routes.py
+│   └── templates/
+│       ├── home.html
+│
+├── timetable/
+│   ├── __init__.py
+│   ├── routes.py
+│   └── templates/
+│       ├── timetable_dashboard.html
+│       ├── create_timetable.html
+│
+├── config.py
+└── run.py

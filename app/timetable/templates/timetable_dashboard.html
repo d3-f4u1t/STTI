@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Timetable Management</h2>
+{% if timetables %}
+<table class="table table-bordered mt-3">
+  <thead>
+    <tr>
+      <th>Department</th>
+      <th>Semester</th>
+      <th>Schedule Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for tt in timetables %}
+    <tr>
+      <td>{{ tt.department }}</td>
+      <td>{{ tt.semester }}</td>
+      <td>{{ tt.data[:100] }}...</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No timetables available yet.</p>
+{% endif %}
+{% endblock %}
