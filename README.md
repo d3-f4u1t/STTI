@@ -91,7 +91,7 @@ A modern web application designed to manage student and teacher activities effic
 ![Home](assets/home.png)
 
 ## LOGED-IN:
-![IN](assets/loged_in.png)
+![IN](assets/loged-in.png)
 
 ## LOGIN:
 ![LOGIN](assets/login.png)
