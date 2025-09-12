@@ -5,7 +5,7 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
-## 🚀 Features (Implemented)
+## Features (Implemented)
 - Responsive and clean home page with Login & Register functionality
 - Dashboard displaying relevant student and teacher data
 - Notifications system for classes
@@ -14,7 +14,7 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
-## 🎯 Planned Features
+## Planned Features
 - Timetable creation algorithm
 - Enhanced notification system with real-time updates
 - Advanced analytics and reports
@@ -23,7 +23,7 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
-## ⚙️ Technologies Used
+## Technologies Used
 - Python (Flask)
 - HTML5 / CSS3
 - JavaScript (Vanilla JS)
@@ -31,7 +31,7 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 - `templates/` – HTML templates (home, dashboard, notifications, etc.)
 - `static/` – CSS, JS, images
 - `app/` – Flask app modules and routing
@@ -39,7 +39,7 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
-## 📌 Usage
+## Usage
 1. Clone the repository  
    ```bash
    git clone https://github.com/d3-f4u1t/STTI.git
@@ -49,7 +49,7 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
-## 🚀 Features (Implemented)
+## Features (Implemented)
 - Responsive and clean home page with Login & Register functionality
 - Dashboard displaying relevant student and teacher data
 - Notifications system for classes
@@ -58,7 +58,7 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
-## 🎯 Planned Features
+## Planned Features
 - Timetable creation algorithm
 - Enhanced notification system with real-time updates
 - Advanced analytics and reports
@@ -67,7 +67,7 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
-## ⚙️ Technologies Used
+## Technologies Used
 - Python (Flask)
 - HTML5 / CSS3
 - JavaScript (Vanilla JS)
@@ -75,7 +75,7 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 - `templates/` – HTML templates (home, dashboard, notifications, etc.)
 - `static/` – CSS, JS, images
 - `app/` – Flask app modules and routing
@@ -83,7 +83,7 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
-## 📌 Usage
+## Usage
 1. Clone the repository  
    ```bash
    git clone https://github.com/d3-f4u1t/STTI.git
