@@ -12,35 +12,53 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    <!-- Animate.css for animations -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Animate.css for simple animations -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 
 <body class="bg-light">
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #c0392b;"> <!-- Reddish navbar -->
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="/">STTI Dashboard</a>
-            <div>
-                <a href="/login" class="btn btn-outline-light me-2">Login</a>
-                <a href="/register" class="btn btn-light">Register</a>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger shadow">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">STTI Dashboard</a>
+        <div class="d-flex align-items-center">
+            <!-- Notifications Button -->
+            <button class="btn btn-outline-light me-2" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#notificationPanel" aria-controls="notificationPanel">
+                Notifications
+            </button>
+            <a href="/login" class="btn btn-outline-light me-2">Login</a>
+            <a href="/register" class="btn btn-light">Register</a>
         </div>
-    </nav>
-
-    <div class="container my-5">
-        {% block content %}{% endblock %}
     </div>
+</nav>
 
-    <footer class="text-white text-center py-3 mt-auto" style="background-color: #c0392b;"> <!-- Same reddish footer -->
-        © 2025 STTI WebApp. All rights reserved.
-    </footer>
+<!-- Notifications Offcanvas Panel -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel" aria-labelledby="notificationPanelLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="notificationPanelLabel">Notifications</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        {% include 'notification.html' %}
+    </div>
+</div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<div class="container my-5">
+    {% block content %}{% endblock %}
+</div>
 
-    <!-- Custom JS -->
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<footer class="bg-danger text-white text-center py-3 mt-auto">
+    LOCALHOST TESTING----
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 
 </html>

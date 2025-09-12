@@ -1,51 +1,40 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Dashboard | STTI WebApp{% endblock %}
+{% block title %}Dashboard - STTI{% endblock %}
 
 {% block content %}
-<div class="text-center mb-5 animate__animated animate__fadeInDown">
-    <h1 class="display-4">Welcome, Hardik</h1>
-    <p class="lead text-muted">Semester 1 – BTCSE CYBER SET</p>
-    <small>Upcoming Holiday: <strong>Maharaja Agarsain Jayanti – 22-09-2025</strong></small>
-</div>
+    <h1 class="mb-4">Welcome to your Dashboard</h1>
 
-<div class="row g-4">
+    <div class="row g-4">
+        <!-- Example cards that can remain as-is or you can customize later -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Profile</h5>
+                    <p class="card-text">Manage your account settings and profile information.</p>
+                    <a href="/profile" class="btn btn-primary">Go to Profile</a>
+                </div>
+            </div>
+        </div>
 
-    <div class="col-md-6 animate__animated animate__fadeInLeft">
-        <div class="card shadow-sm p-4">
-            <h3 class="card-title text-primary">Timetable</h3>
-            <p><strong>Next Class:</strong> Cybersecurity at 10:00 AM</p>
-            <p><strong>Status:</strong> <span class="badge bg-success">On Time</span></p>
-            <a href="/timetable" class="btn btn-primary btn-sm">View Full Timetable</a>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Assignments</h5>
+                    <p class="card-text">View and manage your assignments.</p>
+                    <a href="/assignments" class="btn btn-primary">View Assignments</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Messages</h5>
+                    <p class="card-text">Check your messages and communications.</p>
+                    <a href="/messages" class="btn btn-primary">Check Messages</a>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="col-md-6 animate__animated animate__fadeInRight">
-        <div class="card shadow-sm p-4">
-            <h3 class="card-title text-primary">Notifications</h3>
-            <ul class="list-group">
-                <li class="list-group-item">📢 New assignment available in Cybersecurity.</li>
-                <li class="list-group-item">⚠️ Class canceled tomorrow (Maths).</li>
-                <li class="list-group-item">📩 New message from Admin.</li>
-            </ul>
-        </div>
-    </div>
-
-</div>
-
-<div class="mt-5 text-center animate__animated animate__fadeInUp">
-    <h3>Teachers</h3>
-    <div class="d-flex justify-content-center flex-wrap mt-3">
-        <div class="card m-2 p-3 shadow-sm text-center" style="width: 14rem;">
-            <img src="{{ url_for('static', filename='images/teacher1.png') }}" class="rounded-circle mb-3" width="80">
-            <h5>Dr. Sharma</h5>
-            <p class="text-muted">Cybersecurity</p>
-        </div>
-        <div class="card m-2 p-3 shadow-sm text-center" style="width: 14rem;">
-            <img src="{{ url_for('static', filename='images/teacher2.png') }}" class="rounded-circle mb-3" width="80">
-            <h5>Ms. Mehta</h5>
-            <p class="text-muted">Mathematics</p>
-        </div>
-    </div>
-</div>
 {% endblock %}
