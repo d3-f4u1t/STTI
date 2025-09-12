@@ -83,6 +83,22 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
+
+##1ST-TEST-BUILD:
+![Test](assets/1st-test.png)
+
+##HOME-PAGE:
+![Home](assets/home.png)
+
+##LOGED-IN:
+![IN](assets/loged_in.png)
+
+##LOGIN:
+![LOGIN](assets/login.png)
+
+##REG:
+![REG](assets/reg.png)
+
 ## Usage
 1. Clone the repository  
    ```bash
