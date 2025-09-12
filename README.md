@@ -84,19 +84,19 @@ A modern web application designed to manage student and teacher activities effic
 ---
 
 
-##1ST-TEST-BUILD:
+## 1ST-TEST-BUILD:
 ![Test](assets/1st-test.png)
 
-##HOME-PAGE:
+## HOME-PAGE:
 ![Home](assets/home.png)
 
-##LOGED-IN:
+## LOGED-IN:
 ![IN](assets/loged_in.png)
 
-##LOGIN:
+## LOGIN:
 ![LOGIN](assets/login.png)
 
-##REG:
+## REG:
 ![REG](assets/reg.png)
 
 ## Usage
