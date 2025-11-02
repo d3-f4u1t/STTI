@@ -32,3 +32,21 @@ def remove_notification():
         db.session.commit()
         return jsonify({'success': True})
     return jsonify({'success': False})
+
+@main.route('/notifications')
+@login_required
+
+def get_notifications():
+
+    Notifications = Notification.query.filter_by(user_id=current_user.id).order_by(Notification.timestamp.desc()).all()
+    data = [
+        {
+            "id" : n.id,
+            "message": n.message,
+            "timestamp": n.timestamp.strftime("%Y-%m-%d %H:%M"),
+            "is_read": n.is_read
+
+        }
+        for n in Notifications
+    ]
+    return jsonify(data)

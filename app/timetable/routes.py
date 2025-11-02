@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from app.models import Timetable
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
+from app.models import Timetable, Notification
 from app.extentions import db , login_manager
 
 timetable_bp = Blueprint('timetable', __name__, template_folder='templates')
@@ -24,3 +24,6 @@ def create():
         return redirect(url_for('timetable.dashboard'))
 
     return render_template('create_timetable.html')
+
+
+

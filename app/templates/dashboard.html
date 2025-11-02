@@ -1,29 +1,29 @@
-{% extends "base.html" %}
-
-{% block title %}Student Dashboard{% endblock %}
+{{% extends "base.html" %}
+{% block title %}Dashboard — STTI{% endblock %}
 
 {% block content %}
-<div class="animate__animated animate__fadeIn">
-    <h1 class="mb-4">Dashboard Overview</h1>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card shadow-sm p-4">
-                <h5>Classes Today</h5>
-                <p><strong>5</strong> classes scheduled</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card shadow-sm p-4">
-                <h5>Pending Assignments</h5>
-                <p><strong>2</strong> assignments due</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card shadow-sm p-4">
-                <h5>Upcoming Exams</h5>
-                <p><strong>Maths Midterm</strong> – 25-09-2025</p>
-            </div>
-        </div>
+<div class="row">
+  <div class="col-lg-3">
+    <div class="card p-3">
+      <h6>Quick Links</h6>
+      <ul class="list-unstyled small">
+        <li><a href="{{ url_for('timetable.dashboard') }}">Timetable Generator</a></li>
+        <li><a href="#">Departments</a></li>
+        <li><a href="#">Faculty</a></li>
+      </ul>
     </div>
+  </div>
+
+  <div class="col-lg-9">
+    <div class="card p-4">
+      <h4>Welcome back, {{ current_user.email.split('@')[0] if current_user.is_authenticated else 'Guest' }}</h4>
+      <p class="text-muted">Here’s a quick overview of today’s schedule and notifications.</p>
+
+      <!-- placeholder for future widgets -->
+      <div id="dashboardWidgets">
+        <!-- timetable preview, notification feed, calendar etc. -->
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

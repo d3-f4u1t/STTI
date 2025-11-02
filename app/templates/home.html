@@ -1,40 +1,78 @@
-{% extends 'base.html' %}
-
-{% block title %}Dashboard - STTI{% endblock %}
+{% extends "base.html" %}
+{% block title %}Home — STTI{% endblock %}
 
 {% block content %}
-    <h1 class="mb-4">Welcome to your Dashboard</h1>
+<!-- Hero -->
+<section class="hero py-6">
+  <div class="row align-items-center">
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold hero-title">Smart Classroom & Timetable Scheduler</h1>
+      <p class="lead text-muted">Optimized timetables, fewer clashes, better utilization — plan smarter with STTI.</p>
+      <p>
+        <a href="{{ url_for('auth.register') }}" class="btn btn-danger btn-lg me-2">Get started</a>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-lg">Login</a>
+      </p>
 
-    <div class="row g-4">
-        <!-- Example cards that can remain as-is or you can customize later -->
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Profile</h5>
-                    <p class="card-text">Manage your account settings and profile information.</p>
-                    <a href="/profile" class="btn btn-primary">Go to Profile</a>
-                </div>
-            </div>
+      <div class="mt-4 d-flex gap-3">
+        <div class="stat">
+          <div class="stat-number">24</div>
+          <div class="stat-label">Departments</div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Assignments</h5>
-                    <p class="card-text">View and manage your assignments.</p>
-                    <a href="/assignments" class="btn btn-primary">View Assignments</a>
-                </div>
-            </div>
+        <div class="stat">
+          <div class="stat-number">120</div>
+          <div class="stat-label">Faculties</div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Messages</h5>
-                    <p class="card-text">Check your messages and communications.</p>
-                    <a href="/messages" class="btn btn-primary">Check Messages</a>
-                </div>
-            </div>
+        <div class="stat">
+          <div class="stat-number">600+</div>
+          <div class="stat-label">Batches</div>
         </div>
+      </div>
     </div>
+
+    <div class="col-lg-6">
+      <!-- Animated lines / decorative SVG -->
+      <div class="hero-visual">
+        <svg id="svgLines" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
+          <path d="M20 200 C150 80, 450 320, 580 200" stroke="rgba(220,80,80,0.95)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M20 240 C150 120, 450 360, 580 240" stroke="#008080" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features py-5">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card feature-card">
+        <div class="card-body">
+          <h5>Auto-schedule Engine</h5>
+          <p class="text-muted">Multiple optimized timetable suggestions, respecting faculty & room constraints.</p>
+          <a class="small" href="{{ url_for('main.dashboard') }}">Open timetable generator →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card feature-card">
+        <div class="card-body">
+          <h5>Approval Workflow</h5>
+          <p class="text-muted">Review, approve or propose alternatives. Multi-role access (Admin / Scheduler / Teacher / Student).</p>
+          <a class="small" href="{{ url_for('main.dashboard') }}">Open Dashboard →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card feature-card">
+        <div class="card-body">
+          <h5>Notifications & Live Status</h5>
+          <p class="text-muted">Class started, delayed or cancelled — students and teachers receive real-time updates.</p>
+          <a class="small" href="{{ url_for('main.dashboard') }}">Manage Notifications →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
