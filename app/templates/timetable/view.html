@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block title %}Timetable{% endblock %}
+{% block page_title %}Weekly Timetable{% endblock %}
+
+{% block content %}
+<div class="timetable-page">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <p class="text-muted mb-0">
+                {% if user.role == 'student' %}
+                    Showing classes for your department: <strong>{{ user.department or 'All' }}</strong>
+                {% else %}
+                    Your teaching schedule
+                {% endif %}
+            </p>
+        </div>
+        {% if user.role == 'teacher' %}
+        <a href="{{ url_for('timetable.create') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-2"></i>Add Class
+        </a>
+        {% endif %}
+    </div>
+
+    <!-- Status Legend -->
+    <div class="status-legend mb-4">
+        <span class="legend-item"><span class="dot dot-scheduled"></span> Scheduled</span>
+        <span class="legend-item"><span class="dot dot-started"></span> Started</span>
+        <span class="legend-item"><span class="dot dot-delayed"></span> Delayed</span>
+        <span class="legend-item"><span class="dot dot-cancelled"></span> Cancelled</span>
+    </div>
+
+    <!-- Day Tabs -->
+    <ul class="nav nav-pills day-tabs mb-4" id="dayTabs">
+        {% for day in days %}
+        <li class="nav-item">
+            <button class="nav-link {% if day == today %}active{% endif %}" 
+                    data-bs-toggle="pill" data-bs-target="#day-{{ day }}" type="button">
+                {{ day[:3] }}
+                {% if timetable[day] %}
+                <span class="day-count">{{ timetable[day]|length }}</span>
+                {% endif %}
+                {% if day == today %}<span class="today-dot"></span>{% endif %}
+            </button>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Day Content -->
+    <div class="tab-content" id="dayTabContent">
+        {% for day in days %}
+        <div class="tab-pane fade {% if day == today %}show active{% endif %}" id="day-{{ day }}">
+            {% if timetable[day] %}
+            <div class="row g-3">
+                {% for cls in timetable[day] %}
+                <div class="col-md-6 col-xl-4">
+                    <div class="class-card status-border-{{ cls.status }}">
+                        <div class="class-card-header">
+                            <div class="class-time">
+                                <i class="bi bi-clock me-1"></i>
+                                {{ cls.start_time }} – {{ cls.end_time }}
+                            </div>
+                            <span class="status-badge status-{{ cls.status }}">
+                                {% if cls.status == 'started' %}<i class="bi bi-play-fill"></i>
+                                {% elif cls.status == 'delayed' %}<i class="bi bi-hourglass-split"></i>
+                                {% elif cls.status == 'cancelled' %}<i class="bi bi-x-lg"></i>
+                                {% else %}<i class="bi bi-calendar-check"></i>{% endif %}
+                                {{ cls.status.title() }}
+                            </span>
+                        </div>
+                        <div class="class-card-body">
+                            <h6 class="class-subject">{{ cls.subject }}</h6>
+                            <div class="class-meta">
+                                {% if cls.room %}
+                                <div><i class="bi bi-geo-alt me-1 text-muted"></i>{{ cls.room }}</div>
+                                {% endif %}
+                                {% if cls.department %}
+                                <div><i class="bi bi-building me-1 text-muted"></i>{{ cls.department }}</div>
+                                {% endif %}
+                                <div><i class="bi bi-person me-1 text-muted"></i>{{ cls.teacher_name or cls.teacher_username }}</div>
+                            </div>
+                        </div>
+                        {% if user.role == 'teacher' and cls.teacher_id == user.id %}
+                        <div class="class-card-footer">
+                            <div class="d-flex gap-2 align-items-center">
+                                <select class="form-select form-select-sm status-select flex-grow-1" data-id="{{ cls.id }}">
+                                    <option value="scheduled" {% if cls.status == 'scheduled' %}selected{% endif %}>Scheduled</option>
+                                    <option value="started" {% if cls.status == 'started' %}selected{% endif %}>Started</option>
+                                    <option value="delayed" {% if cls.status == 'delayed' %}selected{% endif %}>Delayed</option>
+                                    <option value="cancelled" {% if cls.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                                </select>
+                                <form method="POST" action="{{ url_for('timetable.delete', entry_id=cls.id) }}" 
+                                      onsubmit="return confirm('Delete this class?')">
+                                    <button class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state py-5">
+                <i class="bi bi-calendar-x"></i>
+                <p>No classes scheduled for {{ day }}.</p>
+                {% if user.role == 'teacher' %}
+                <a href="{{ url_for('timetable.create') }}" class="btn btn-primary btn-sm">
+                    <i class="bi bi-plus me-1"></i>Add a Class
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('.status-select').forEach(select => {
+    select.addEventListener('change', function() {
+        const id = this.dataset.id;
+        const status = this.value;
+        fetch(`/timetable/update_status/${id}`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({status})
+        }).then(r => r.json()).then(data => {
+            if (data.success) window.location.reload();
+        });
+    });
+});
+</script>
+{% endblock %}

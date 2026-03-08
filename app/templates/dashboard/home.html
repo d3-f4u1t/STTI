@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-home">
+    <div class="welcome-banner mb-4">
+        <div class="welcome-text">
+            <h4>Good {% if now.hour < 12 %}Morning{% elif now.hour < 17 %}Afternoon{% else %}Evening{% endif %},
+                {{ user.full_name or user.username }}! 👋</h4>
+            <p>Today is <strong>{{ today }}</strong>. You have <strong>{{ total_classes_today }}</strong> class(es) scheduled.</p>
+        </div>
+        <div class="welcome-role-badge">
+            <i class="bi bi-{% if user.role == 'teacher' %}person-workspace{% else %}backpack{% endif %}"></i>
+            {{ user.role.title() }}
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card stat-blue">
+                <div class="stat-icon"><i class="bi bi-calendar3"></i></div>
+                <div class="stat-info"><div class="stat-number">{{ total_classes_today }}</div><div class="stat-label">Classes Today</div></div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card stat-green">
+                <div class="stat-icon"><i class="bi bi-check2-circle"></i></div>
+                <div class="stat-info"><div class="stat-number">{{ active_today }}</div><div class="stat-label">Active / On Track</div></div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card stat-red">
+                <div class="stat-icon"><i class="bi bi-x-circle"></i></div>
+                <div class="stat-info"><div class="stat-number">{{ cancelled_today }}</div><div class="stat-label">Cancelled Today</div></div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card stat-purple">
+                <div class="stat-icon"><i class="bi bi-bell"></i></div>
+                <div class="stat-info"><div class="stat-number">{{ unread_count }}</div><div class="stat-label">Unread Notifications</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0"><i class="bi bi-calendar3-week me-2"></i>Today's Schedule — {{ today }}</h6>
+                    <a href="{{ url_for('timetable.view') }}" class="btn btn-sm btn-outline-primary">Full Timetable</a>
+                </div>
+                <div class="card-body p-0">
+                    {% if today_classes %}
+                    <div class="schedule-list">
+                        {% for cls in today_classes %}
+                        <div class="schedule-item">
+                            <div class="schedule-time">
+                                <div class="time-start">{{ cls.start_time }}</div>
+                                <div class="time-sep"><i class="bi bi-arrow-down"></i></div>
+                                <div class="time-end">{{ cls.end_time }}</div>
+                            </div>
+                            <div class="schedule-details">
+                                <div class="schedule-subject">{{ cls.subject }}</div>
+                                <div class="schedule-meta">
+                                    {% if cls.room %}<span><i class="bi bi-geo-alt me-1"></i>{{ cls.room }}</span>{% endif %}
+                                    {% if cls.department %}<span><i class="bi bi-building me-1"></i>{{ cls.department }}</span>{% endif %}
+                                    {% if user.role == 'student' %}
+                                    <span><i class="bi bi-person me-1"></i>{{ cls.teacher_name or cls.teacher_username }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="schedule-status">
+                                <span class="status-pill status-{{ cls.status }}">
+                                    {% if cls.status == 'started' %}<i class="bi bi-play-circle-fill"></i>
+                                    {% elif cls.status == 'delayed' %}<i class="bi bi-clock-fill"></i>
+                                    {% elif cls.status == 'cancelled' %}<i class="bi bi-x-circle-fill"></i>
+                                    {% else %}<i class="bi bi-calendar-check"></i>{% endif %}
+                                    {{ cls.status.title() }}
+                                </span>
+                                {% if user.role == 'teacher' and cls.teacher_id == user.id %}
+                                <div class="status-controls mt-1">
+                                    <select class="form-select form-select-sm status-select" data-id="{{ cls.id }}">
+                                        <option value="scheduled" {% if cls.status == 'scheduled' %}selected{% endif %}>Scheduled</option>
+                                        <option value="started" {% if cls.status == 'started' %}selected{% endif %}>Started</option>
+                                        <option value="delayed" {% if cls.status == 'delayed' %}selected{% endif %}>Delayed</option>
+                                        <option value="cancelled" {% if cls.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                                    </select>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="empty-state py-5">
+                        <i class="bi bi-calendar-x"></i>
+                        <p>No classes scheduled for today.</p>
+                        {% if user.role == 'teacher' %}
+                        <a href="{{ url_for('timetable.create') }}" class="btn btn-primary btn-sm">Add a Class</a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            {% if user.role == 'teacher' %}
+            <div class="card mb-4">
+                <div class="card-header"><h6 class="mb-0"><i class="bi bi-people me-2"></i>Platform Overview</h6></div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-around text-center">
+                        <div><div class="fs-3 fw-bold text-primary">{{ total_teachers }}</div><div class="text-muted small">Teachers</div></div>
+                        <div><div class="fs-3 fw-bold text-success">{{ total_students }}</div><div class="text-muted small">Students</div></div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0"><i class="bi bi-bell me-2"></i>Recent Notifications</h6>
+                    <a href="{{ url_for('notifications.view') }}" class="btn btn-sm btn-outline-secondary">View All</a>
+                </div>
+                <div class="card-body p-0">
+                    {% if recent_notifs %}
+                    <div class="notif-list">
+                        {% for notif in recent_notifs %}
+                        <div class="notif-item {% if notif.id not in read_ids %}unread{% endif %}">
+                            <div class="notif-icon notif-{{ notif.notification_type }}">
+                                <i class="bi bi-{% if notif.notification_type == 'success' %}check-circle{% elif notif.notification_type == 'danger' %}x-circle{% elif notif.notification_type == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %}"></i>
+                            </div>
+                            <div class="notif-content">
+                                <div class="notif-title">{{ notif.title }}</div>
+                                <div class="notif-time">{{ notif.created_at }}</div>
+                            </div>
+                            {% if notif.id not in read_ids %}<span class="unread-dot"></span>{% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="empty-state py-4">
+                        <i class="bi bi-bell-slash"></i><p class="small">No notifications yet.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if user.role == 'teacher' %}
+            <div class="card mt-4">
+                <div class="card-header"><h6 class="mb-0"><i class="bi bi-lightning me-2"></i>Quick Actions</h6></div>
+                <div class="card-body d-flex flex-column gap-2">
+                    <a href="{{ url_for('timetable.create') }}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-2"></i>Add Class to Timetable
+                    </a>
+                    <a href="{{ url_for('notifications.create') }}" class="btn btn-outline-primary">
+                        <i class="bi bi-megaphone me-2"></i>Send Notification
+                    </a>
+                    <a href="{{ url_for('dashboard.analytics') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-bar-chart me-2"></i>View Analytics
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('.status-select').forEach(select => {
+    select.addEventListener('change', function() {
+        const id = this.dataset.id;
+        const status = this.value;
+        fetch(`/timetable/update_status/${id}`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({status})
+        }).then(r => r.json()).then(data => {
+            if (data.success) window.location.reload();
+        });
+    });
+});
+</script>
+{% endblock %}

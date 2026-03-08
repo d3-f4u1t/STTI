@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block public_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STTI – Student Teacher Time Interface</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="landing-page">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark landing-nav">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-mortarboard-fill me-2"></i>STTI
+        </a>
+        <div class="ms-auto d-flex gap-2">
+            <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-sm">
+                <i class="bi bi-box-arrow-in-right me-1"></i>Login
+            </a>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-sm">
+                <i class="bi bi-person-plus me-1"></i>Register
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-section">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+        <div class="row align-items-center min-vh-100 py-5">
+            <div class="col-lg-6">
+                <div class="hero-badge mb-3">
+                    <span class="badge bg-primary-soft">
+                        <i class="bi bi-lightning-fill me-1"></i>Smart Scheduling
+                    </span>
+                </div>
+                <h1 class="hero-title">
+                    Student Teacher<br>
+                    <span class="gradient-text">Time Interface</span>
+                </h1>
+                <p class="hero-subtitle">
+                    A unified platform for managing class schedules, notifications,
+                    and academic activities — designed for both students and teachers.
+                </p>
+                <div class="hero-actions">
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg me-3">
+                        <i class="bi bi-rocket-takeoff me-2"></i>Get Started
+                    </a>
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-arrow-right-circle me-2"></i>Sign In
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="hero-visual">
+                    <div class="hero-card card-1">
+                        <i class="bi bi-calendar3-week"></i>
+                        <span>Timetable</span>
+                    </div>
+                    <div class="hero-card card-2">
+                        <i class="bi bi-bell-fill"></i>
+                        <span>Notifications</span>
+                    </div>
+                    <div class="hero-card card-3">
+                        <i class="bi bi-bar-chart-line"></i>
+                        <span>Analytics</span>
+                    </div>
+                    <div class="hero-icon-center">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features-section py-6">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Everything You Need</h2>
+            <p class="section-subtitle">Designed for modern educational environments</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-blue">
+                        <i class="bi bi-calendar3"></i>
+                    </div>
+                    <h5>Smart Timetable</h5>
+                    <p>View and manage your weekly class schedule with real-time status updates for started, delayed, or cancelled classes.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-purple">
+                        <i class="bi bi-bell-fill"></i>
+                    </div>
+                    <h5>Live Notifications</h5>
+                    <p>Instant alerts for class changes. Teachers can push updates; students stay informed automatically.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-green">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <h5>Role-Based Access</h5>
+                    <p>Separate dashboards for students and teachers, each with tailored tools and views.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="landing-footer">
+    <div class="container text-center py-4">
+        <p class="mb-0 text-muted">
+            <i class="bi bi-mortarboard-fill me-2"></i>
+            STTI &copy; 2025 — Student Teacher Time Interface
+        </p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

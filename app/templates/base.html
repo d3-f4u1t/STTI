@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}STTI{% endblock %} | Student Teacher Time Interface</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+{% if session.user_id %}
+<div class="wrapper">
+    <nav id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon"><i class="bi bi-mortarboard-fill"></i></span>
+                <span class="logo-text">STTI</span>
+            </div>
+            <button id="sidebarToggle" class="sidebar-toggle"><i class="bi bi-list"></i></button>
+        </div>
+        <div class="user-info">
+            <div class="user-avatar">{{ (session.full_name or session.username)[0].upper() }}</div>
+            <div class="user-details">
+                <div class="user-name">{{ session.full_name or session.username }}</div>
+                <div class="user-role badge {% if session.role == 'teacher' %}badge-teacher{% else %}badge-student{% endif %}">
+                    <i class="bi bi-{% if session.role == 'teacher' %}person-badge{% else %}person-circle{% endif %}"></i>
+                    {{ session.role.title() }}
+                </div>
+            </div>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="nav-item {% if request.endpoint == 'dashboard.home' %}active{% endif %}">
+                <a href="{{ url_for('dashboard.home') }}" class="nav-link">
+                    <i class="bi bi-grid-fill"></i><span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item {% if request.blueprint == 'timetable' %}active{% endif %}">
+                <a href="{{ url_for('timetable.view') }}" class="nav-link">
+                    <i class="bi bi-calendar3"></i><span>Timetable</span>
+                </a>
+            </li>
+            <li class="nav-item {% if request.blueprint == 'notifications' %}active{% endif %}">
+                <a href="{{ url_for('notifications.view') }}" class="nav-link">
+                    <i class="bi bi-bell-fill"></i><span>Notifications</span>
+                    <span class="notif-badge" id="notifBadge" style="display:none"></span>
+                </a>
+            </li>
+            {% if session.role == 'teacher' %}
+            <li class="nav-item {% if request.endpoint == 'dashboard.analytics' %}active{% endif %}">
+                <a href="{{ url_for('dashboard.analytics') }}" class="nav-link">
+                    <i class="bi bi-bar-chart-fill"></i><span>Analytics</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+        <div class="sidebar-footer">
+            <a href="{{ url_for('auth.logout') }}" class="nav-link logout-link">
+                <i class="bi bi-box-arrow-left"></i><span>Logout</span>
+            </a>
+        </div>
+    </nav>
+    <div id="content" class="main-content">
+        <div class="topbar">
+            <button id="mobileSidebarToggle" class="mobile-toggle d-md-none"><i class="bi bi-list"></i></button>
+            <div class="topbar-title">{% block page_title %}{% endblock %}</div>
+            <div class="topbar-right"><span class="time-display" id="currentTime"></span></div>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages px-4 pt-3">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <div class="page-content">{% block content %}{% endblock %}</div>
+    </div>
+</div>
+{% else %}
+{% block public_content %}{% endblock %}
+{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

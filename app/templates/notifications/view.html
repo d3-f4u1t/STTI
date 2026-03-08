@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Notifications{% endblock %}
+{% block page_title %}Notifications{% endblock %}
+
+{% block content %}
+<div class="notifications-page">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <p class="text-muted mb-0">{{ notifications|length }} notification(s)</p>
+        <div class="d-flex gap-2">
+            <form method="POST" action="{{ url_for('notifications.mark_all_read') }}">
+                <button type="submit" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-check-all me-1"></i>Mark All Read
+                </button>
+            </form>
+            {% if user.role == 'teacher' %}
+            <a href="{{ url_for('notifications.create') }}" class="btn btn-primary btn-sm">
+                <i class="bi bi-megaphone me-2"></i>Send Notification
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if notifications %}
+    <div class="notif-full-list">
+        {% for notif in notifications %}
+        <div class="notif-full-item {% if notif.id not in read_ids %}unread{% endif %}" 
+             id="notif-{{ notif.id }}" 
+             onclick="markRead({{ notif.id }})">
+            <div class="notif-full-icon notif-{{ notif.notification_type }}">
+                <i class="bi bi-{% if notif.notification_type == 'success' %}check-circle-fill{% elif notif.notification_type == 'danger' %}x-circle-fill{% elif notif.notification_type == 'warning' %}exclamation-triangle-fill{% else %}info-circle-fill{% endif %}"></i>
+            </div>
+            <div class="notif-full-content">
+                <div class="notif-full-header">
+                    <h6 class="notif-full-title">{{ notif.title }}</h6>
+                    <div class="notif-full-meta">
+                        <span class="badge notif-type-badge notif-{{ notif.notification_type }}">
+                            {{ notif.notification_type.title() }}
+                        </span>
+                        <span class="notif-target-badge">
+                            <i class="bi bi-people me-1"></i>{{ notif.target_role.title() }}
+                        </span>
+                    </div>
+                </div>
+                <p class="notif-full-message">{{ notif.message }}</p>
+                <div class="notif-full-footer">
+                    <span class="notif-sender">
+                        <i class="bi bi-person me-1"></i>
+                        {{ notif.sender_name or notif.sender_username }}
+                    </span>
+                    <span class="notif-time">
+                        <i class="bi bi-clock me-1"></i>
+                        {{ notif.created_at }}
+                    </span>
+                </div>
+            </div>
+            {% if notif.id not in read_ids %}
+            <div class="unread-indicator"></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state py-6">
+        <i class="bi bi-bell-slash"></i>
+        <h5>No Notifications</h5>
+        <p class="text-muted">You're all caught up! No notifications at this time.</p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function markRead(id) {
+    const el = document.getElementById('notif-' + id);
+    if (el && el.classList.contains('unread')) {
+        fetch(`/notifications/mark_read/${id}`, { method: 'POST' })
+            .then(() => {
+                el.classList.remove('unread');
+                const dot = el.querySelector('.unread-indicator');
+                if (dot) dot.remove();
+            });
+    }
+}
+</script>
+{% endblock %}

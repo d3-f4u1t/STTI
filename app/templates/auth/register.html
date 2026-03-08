@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block public_content %}
+<div class="auth-page">
+    <div class="auth-left">
+        <div class="auth-brand">
+            <i class="bi bi-mortarboard-fill"></i>
+            <span>STTI</span>
+        </div>
+        <h2>Join STTI.</h2>
+        <p>Create your account to start managing your academic schedule efficiently.</p>
+        <div class="auth-features">
+            <div class="auth-feature-item"><i class="bi bi-check-circle-fill"></i> Free to use</div>
+            <div class="auth-feature-item"><i class="bi bi-check-circle-fill"></i> Student & Teacher roles</div>
+            <div class="auth-feature-item"><i class="bi bi-check-circle-fill"></i> Instant setup</div>
+        </div>
+    </div>
+    <div class="auth-right">
+        <div class="auth-card">
+            <h3 class="auth-title">Create Account</h3>
+            <p class="auth-sub">Fill in your details to get started</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('auth.register') }}">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Full Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" name="full_name" class="form-control" placeholder="John Doe" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-at"></i></span>
+                            <input type="text" name="username" class="form-control" placeholder="johndoe" required>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Role</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                            <select name="role" class="form-select" required>
+                                <option value="student">Student</option>
+                                <option value="teacher">Teacher</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Department</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-building"></i></span>
+                            <input type="text" name="department" class="form-control" placeholder="e.g. Computer Science">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" name="password" class="form-control" placeholder="Min 6 chars" required minlength="6">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Confirm Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                            <input type="password" name="confirm_password" class="form-control" placeholder="Repeat password" required>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <button type="submit" class="btn btn-primary w-100 btn-auth">
+                            <i class="bi bi-person-plus me-2"></i>Create Account
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="auth-footer-link">
+                Already have an account? <a href="{{ url_for('auth.login') }}">Sign in here</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

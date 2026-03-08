@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Send Notification{% endblock %}
+{% block page_title %}Send Notification{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card form-card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-megaphone me-2"></i>Compose Notification</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('notifications.create') }}">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Title <span class="text-danger">*</span></label>
+                        <input type="text" name="title" class="form-control" placeholder="e.g. Class Cancelled Today" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Message <span class="text-danger">*</span></label>
+                        <textarea name="message" class="form-control" rows="4" 
+                                  placeholder="Enter the notification details here..." required></textarea>
+                    </div>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Type</label>
+                            <select name="notification_type" class="form-select">
+                                <option value="info">ℹ️ Info</option>
+                                <option value="success">✅ Success</option>
+                                <option value="warning">⚠️ Warning</option>
+                                <option value="danger">❌ Danger</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Send To</label>
+                            <select name="target_role" class="form-select">
+                                <option value="all">👥 All Users</option>
+                                <option value="student">🎓 Students Only</option>
+                                <option value="teacher">👨‍🏫 Teachers Only</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-send me-2"></i>Send Notification
+                        </button>
+                        <a href="{{ url_for('notifications.view') }}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

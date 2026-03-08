@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Analytics{% endblock %}
+{% block page_title %}Analytics & Reports{% endblock %}
+
+{% block content %}
+<div class="analytics-page">
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-header"><h6 class="mb-0"><i class="bi bi-bar-chart me-2"></i>Classes Per Day</h6></div>
+                <div class="card-body">
+                    <canvas id="dayChart" height="120"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header"><h6 class="mb-0"><i class="bi bi-pie-chart me-2"></i>Class Status Distribution</h6></div>
+                <div class="card-body">
+                    <canvas id="statusChart" height="200"></canvas>
+                    <div class="mt-3">
+                        {% for status, count in status_counts.items() %}
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span style="display:flex;align-items:center;gap:8px">
+                                <span class="dot dot-{{ status }}"></span>{{ status.title() }}
+                            </span>
+                            <strong>{{ count }}</strong>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="stat-card stat-blue">
+                        <div class="stat-icon"><i class="bi bi-calendar3"></i></div>
+                        <div class="stat-info"><div class="stat-number">{{ status_counts.values()|sum }}</div><div class="stat-label">Total Classes</div></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card stat-green">
+                        <div class="stat-icon"><i class="bi bi-play-circle"></i></div>
+                        <div class="stat-info"><div class="stat-number">{{ status_counts.started }}</div><div class="stat-label">Started</div></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card stat-yellow">
+                        <div class="stat-icon"><i class="bi bi-hourglass-split"></i></div>
+                        <div class="stat-info"><div class="stat-number">{{ status_counts.delayed }}</div><div class="stat-label">Delayed</div></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card stat-red">
+                        <div class="stat-icon"><i class="bi bi-x-circle"></i></div>
+                        <div class="stat-info"><div class="stat-number">{{ status_counts.cancelled }}</div><div class="stat-label">Cancelled</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+const dayLabels = {{ day_counts.keys()|list|tojson }};
+const dayData = {{ day_counts.values()|list|tojson }};
+const statusLabels = {{ status_counts.keys()|list|tojson }};
+const statusData = {{ status_counts.values()|list|tojson }};
+
+new Chart(document.getElementById('dayChart'), {
+    type: 'bar',
+    data: { labels: dayLabels, datasets: [{ label: 'Classes', data: dayData, backgroundColor: 'rgba(99,102,241,0.7)', borderColor: 'rgba(99,102,241,1)', borderWidth: 2, borderRadius: 6 }] },
+    options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+});
+new Chart(document.getElementById('statusChart'), {
+    type: 'doughnut',
+    data: { labels: statusLabels.map(s => s.charAt(0).toUpperCase() + s.slice(1)), datasets: [{ data: statusData, backgroundColor: ['#6366f1', '#22c55e', '#f59e0b', '#ef4444'], hoverOffset: 6 }] },
+    options: { responsive: true, plugins: { legend: { display: false } } }
+});
+</script>
+{% endblock %}
