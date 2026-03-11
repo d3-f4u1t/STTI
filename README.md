@@ -14,15 +14,6 @@ A modern web application designed to manage student and teacher activities effic
 
 ---
 
-## 🎯 Planned Features
-- Timetable creation algorithm
-- Enhanced notification system with real-time updates
-- Advanced analytics and reports
-- Role-based access control for teachers and students
-- Dynamic class management system
-
----
-
 ## ⚙️ Technologies Used
 - Python (Flask)
 - HTML5 / CSS3
@@ -55,15 +46,6 @@ A modern web application designed to manage student and teacher activities effic
 - Notifications system for classes
 - Timetable display with class status (Started / Delayed / Cancelled)
 - Basic sidebar navigation for easy access to sections
-
----
-
-## 🎯 Planned Features
-- Timetable creation algorithm
-- Enhanced notification system with real-time updates
-- Advanced analytics and reports
-- Role-based access control for teachers and students
-- Dynamic class management system
 
 ---
 
