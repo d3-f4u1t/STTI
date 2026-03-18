@@ -2,10 +2,7 @@
 STUDENT TEACHER TIME MANAGEMENT INTERFACE
 
 A modern web application designed to manage student and teacher activities efficiently. Built using **Flask**, **HTML**, **CSS**, and **JavaScript**.
-THE SITE IS NOW LIVE
-AT
-'''bash
-d3-f4u1t.github.io
+
 ---
 
 ## 🚀 Features (Implemented)
@@ -72,3 +69,8 @@ A modern web application designed to manage student and teacher activities effic
 1. Clone the repository  
    ```bash
    git clone https://github.com/d3-f4u1t/STTI.git
+
+2. THE SITE perview is now live
+
+   ```bash
+   d3-f4u1t.github.io
