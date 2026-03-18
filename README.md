@@ -2,7 +2,10 @@
 STUDENT TEACHER TIME MANAGEMENT INTERFACE
 
 A modern web application designed to manage student and teacher activities efficiently. Built using **Flask**, **HTML**, **CSS**, and **JavaScript**.
-
+THE SITE IS NOW LIVE
+AT
+'''bash
+d3-f4u1t.github.io
 ---
 
 ## 🚀 Features (Implemented)
