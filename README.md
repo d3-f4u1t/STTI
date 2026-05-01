@@ -1,6 +1,6 @@
 <h1 align="center" id="title">STTI</h1>
 
-<p align="center"><img src="https://socialify.git.ci/d3-f4u1t/STTI/image?font=JetBrains+Mono&amp;language=1&amp;logo=ss%2Flogo%28trans%29&amp;name=1&amp;owner=1&amp;pattern=Transparent&amp;stargazers=1&amp;theme=Dark" alt="project-image"></p>
+<p align="center"><img src="https://socialify.git.ci/d3-f4u1t/STTI/image?name=1&amp;owner=1&amp;pattern=Transparent&amp;stargazers=1&amp;theme=Light" alt="project-image"></p>
 
 <p id="description">STTI stands for **Student Teacher Time Interface**. It is a Flask-based academic scheduling web app that helps teachers manage classes and helps students stay updated with timetable changes and announcements in one place.</p>
 
