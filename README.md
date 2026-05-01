@@ -1,4 +1,5 @@
-<h1 align="center" id="title">STTI</h1>
+<h1 align="center" id="title"><img src="ss/logo(trans).png" width="200" alt="Project Logo"></h1>
+
 
 <p align="center"><img src="https://socialify.git.ci/d3-f4u1t/STTI/image?name=1&amp;owner=1&amp;pattern=Transparent&amp;stargazers=1&amp;theme=Dark" alt="project-image"></p>
 
