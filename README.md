@@ -3,7 +3,7 @@
 
 <p align="center"><img src="https://socialify.git.ci/d3-f4u1t/STTI/image?name=1&amp;owner=1&amp;pattern=Transparent&amp;stargazers=1&amp;theme=Dark" alt="project-image"></p>
 
-<p id="description">STTI stands for **Student Teacher Time Interface**. It is a Flask-based academic scheduling web app that helps teachers manage classes and helps students stay updated with timetable changes and announcements in one place.</p>
+STTI stands for **Student Teacher Time Interface**. It is a Flask-based academic scheduling web app that helps teachers manage classes and helps students stay updated with timetable changes and announcements in one place.
 
 <h2> Features</h2>
 
@@ -46,11 +46,11 @@ python run.py
 
 Technologies used in the project:
 
-*   python
-*   flask
-*   sqlite
-*   bootstrap5
-*   charts.js
-*   html5
-*   css
-*   js
+*   PYTHON
+*   FLASK
+*   SQLITE
+*   BOOTSTRAP5
+*   CHARTS.JS
+*   HTML5
+*   CSS
+*   JS
